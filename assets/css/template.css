@@ -1,0 +1,258 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    font-family: Arial;
+}
+
+/******************************
+******** ESTILO GETAL *********
+******************************/
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=number],
+select,
+textarea{
+    width: 100%;
+    height: 30px;
+    font-size: 13px;
+    outline: 0;
+    padding: 0 5px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+textarea{
+    height: 100px;
+    border: 1px solid #CCC;
+}
+input[type=submit],
+button,
+.button{
+    border: 0;
+    background-color: #224074;
+    color: #FFF;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 3px;
+    padding: 0 20px;
+    cursor: pointer;
+    font-size: 13px;
+    display: inline-block;
+    text-decoration: none;
+}
+.button_small{
+    height: 30px;
+    line-height: 30px;
+}
+.button a{
+    color: #FFF;
+    text-decoration: none;
+}
+table{
+    margin-top: 10px;
+}
+table th{
+    height: 40px;
+    line-height: 40px;
+    background-color: #DDD;
+    text-align: left;
+    padding: 0 10px;
+}
+table td{
+    height: 40px;
+    line-height: 40px;
+    background-color: #EEE;
+    padding: 0 10px;
+}
+
+/******************************
+************ MENU *************
+******************************/
+.leftmenu{
+    width: 200px;
+    background-color: #c0392b;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.leftmenu .company_name{
+    height: 100px;
+    line-height: 100px;
+    font-size: 18px;
+    color: #FFF;
+    text-align: center;
+}
+
+.leftmenu .menuarea{
+    color: #FFF;
+}
+.menuarea ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.menuarea ul li{
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    padding-left: 30px;
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    background-position: 10px 14px;
+}
+.menuarea ul li:hover{
+    background-color: #000;
+}
+.menuarea ul li a{
+    color: #FFF;
+    text-decoration: none;
+    display: block;
+}
+
+.menuarea li:nth-child(1){
+    background-image: url(../images/icons/icon-home.png);
+}
+.menuarea li:nth-child(2){
+    background-image: url(../images/icons/icon-padlock.png);
+}
+.menuarea li:nth-child(3){
+    background-image: url(../images/icons/icon-users.png);
+}
+.menuarea li:nth-child(4){
+    background-image: url(../images/icons/icon-records.png);
+}
+.menuarea li:nth-child(5){
+    background-image: url(../images/icons/icon-car.png);
+}
+.menuarea li:nth-child(6){
+    background-image: url(../images/icons/icon-key.png);
+}
+.menuarea li:nth-child(7){
+    background-image: url(../images/icons/icon-reports.png);
+}
+
+
+
+/******************************
+********* CONTAINER ***********
+******************************/
+.container{
+    padding-left: 200px;
+}
+.container .top{
+    height: 40px;
+    background-color: #c0392b;
+    color: #FFF;
+    font-size: 13px;
+}
+.container .top .top_right{
+    float: right;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+}
+.container .top .top_right a{
+    color: #FFF;
+    text-decoration: none;
+}
+
+
+/******************************
+******* CONTAINER-AREA ********
+******************************/
+.container .area{
+    padding: 15px;
+}
+.tabarea{
+    height: 40px;
+}
+.tabarea .tabitem{
+    width: 50%;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    background-color: #EEE;
+    cursor: pointer;
+}
+.tabarea .tabitem.activetab{
+    border-bottom: 1px solid #FFF;
+    background-color: #FFF;
+}
+.tabcontent .tabbody{
+    display: none;
+    padding-top: 20px;
+}
+.p_item{
+    height: 35px;
+    line-height: 35px;
+}
+.warn{
+    padding: 15px;
+    background-color: #EEE;
+    border: 2px solid #CCC;
+    border-radius: 3px;
+    margin: 10px 0; 
+}
+
+
+/******************************
+**** PARA PAGINA (VEICULOS) ******
+******************************/
+.pagination{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.pagination .pag_item{
+    width: 20px;
+    height: 20px;
+    float: left;
+    border: 1px solid #224074;
+    margin-right: 3px;
+    text-align: center;
+    line-height: 20px;
+}
+.pagination .pag_item a{
+    color: #224074;
+    text-decoration: none;
+}
+.pagination .pag_item.pag_ativo{
+    background-color: #224074;
+    color: #FFF;
+}
+.pagination .pag_item.pag_ativo a{
+    color: #FFF;
+}
+#busca{
+    width: 100px;
+    float: right;
+    background-image: url("../images/search.png");
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    background-position: 5px;
+    padding-left: 25px;
+    border-radius: 3px;
+    border: 1px solid #CCC;
+}
+.searchresults{
+    width: 248px;
+    background-color: #FFF;
+    position: absolute;
+}
+.si{
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+.si a{
+    color: #000;
+    text-decoration: none;
+    display: block;
+}
+.si:hover{
+    background-color: #EEE;
+}
