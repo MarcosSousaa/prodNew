@@ -6,6 +6,7 @@ require './enviroment.php';
 global $config;
 $config = array();
 define('BASE_URL', 'http://localhost/PortariaBandeirante');
+//define('BASE_URL', 'http://localhost:8087');
 if(ENVIROMENT == 'development'){
 	$config['dbname'] = 'portariabandeirante';
     $config['dbhost'] = 'localhost';

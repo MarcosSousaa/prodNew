@@ -3,8 +3,7 @@
 class Core{
 	public function run(){
 		$url = '/'. ( (isset($_GET['q'])) ? $_GET['q'] : '');
-		$params = array();
-
+		$params = array();        
 		if( !empty($url) && $url != '/'){
 			$url = explode('/', $url);
 			array_shift($url); // Remove a posicao do $array[0]
@@ -23,7 +22,7 @@ class Core{
                 $params = $url;
             }
         } else {
-            $currentController = 'HomeController';
+            $currentController = 'homeController';
             $currentAction = 'index';
         }
         $controller = new $currentController();

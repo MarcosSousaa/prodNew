@@ -25,7 +25,7 @@
                     <li><a href="<?= BASE_URL ?>/records">Entrada-Saída</a></li>
                     <li><a href="<?= BASE_URL ?>/veiculos">Veículos</a></li>
                     <li><a href="<?= BASE_URL ?>/chaves">Chaves</a></li>                    
-                    <li><a href="<?= BASE_URL ?>/report">Relatórios</a></li>
+                    <li><a href="<?= BASE_URL ?>/reports">Relatórios</a></li>
                 </ul>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <?php 
-
+//error_reporting(0); 0 = DESABILITADO 1 = HABILITADO
 class Model{
 	// todos que 'extends Model' vão usar a variavel $db
     protected $db;
@@ -11,7 +11,7 @@ class Model{
             // set the PDO error mode to exception
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo "Falha: " . $e->getMessage();
+            echo "Falha ao conectar no banco ";                        
         }
         
     }

@@ -13,19 +13,24 @@ class Users extends Model{
 	}
 
 	public function doLogin($cpf){
-		$sql = "SELECT * FROM users WHERE cpf = :cpf";
-		$stmt = $this->db->prepare($sql);
-		$stmt->bindValue(":cpf", $cpf);
-		$stmt->execute();
+        try{
+            $sql = "SELECT * FROM users WHERE cpf = :cpf";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(":cpf", $cpf);
+            $stmt->execute();
 
-		if($stmt->rowCount() > 0){
-			$row = $stmt->fetch();
+            if($stmt->rowCount() > 0){
+                $row = $stmt->fetch();
 
-			$_SESSION['ccUser'] = $row['cpf'];
-			return true;
-		}
+                $_SESSION['ccUser'] = $row['cpf'];
+                return true;
+            }
 
-		return false;
+            return false;    
+        } catch(Exception $e){
+            echo "ERRO AO BUSCAR INFO NO BD ".$e->getMessage();
+        }
+		
 	}
 
 	public function setLoggedUser(){
