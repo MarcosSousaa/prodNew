@@ -1,6 +1,6 @@
 <?php
 
-class homeController extends Controller{
+class HomeController extends Controller{
 	private $user;
 
 	public function __construct(){
@@ -8,7 +8,6 @@ class homeController extends Controller{
 		$this->user = new Users();
 		if(!$this->user->isLogged()){
 			header("Location:" . BASE_URL . "/login");
-			exit();
 		}
 
 		$this->user->setLoggedUser();		

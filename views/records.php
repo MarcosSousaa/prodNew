@@ -21,7 +21,7 @@
         <br /><br /><br />
         <input type="submit" value="Pesquisar" id="pesquisar">    
     </form>
-
+    
 </div>
 <?php if(isset($records_list) && !empty($records_list) && $records_list['0']['tipo'] == '0'):?>
 <div class="tabContentRegistros">    
@@ -39,16 +39,21 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($records_list as $r): ?>                 
+                <?php foreach($records_list as $r): ?>                                   
                     <tr>
-                        <td><?= date('d/m/Y', strtotime($r['data_er']));?></td>
-                        <td><?= $r['hora_er'];?></td>
-                        <td><?= $r['colab_ret'];?></td>
-                        <td><?= $r['cod'];?></td>
-                        <td><?= $r['local'];?></td> 
+                        <td style=""><?= date('d/m/Y', strtotime($r['data_er']));?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['hora_er'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['colab_ret'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['cod'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['local'];?></td> 
                         <td>
-                            <a class="button button_small" href="<?= BASE_URL ?>/records/edit/<?= $r['id'] ?>">Editar</a>
-                            <a class="button button_small" href="<?= BASE_URL ?>/records/delete/<?= $r['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
+                            <?php if($r['flag'] == '1'){ ?>
+                                <a class="button button_small" href="<?= BASE_URL ?>/records/edit/<?= $r['id'] ?>">Editar</a>
+                                <a class="button button_small" href="<?= BASE_URL ?>/records/delete/<?= $r['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
+                            <?php }else { ?>
+                                <a class="button button_small" href="<?= BASE_URL ?>/records/delete/<?= $r['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
+                            <?php } ?>
+                            </td>
                         </td>                   
                     </tr>
                 <?php endforeach; ?>
@@ -73,14 +78,18 @@
             <tbody>
                 <?php foreach($records_list as $r): ?>                 
                     <tr>
-                        <td><?= date('d/m/Y', strtotime($r['data_er']));?></td>
-                        <td><?= $r['hora_er'];?></td>
-                        <td><?= $r['placa'];?></td>
-                        <td><?= $r['motorista'];?></td>
-                        <td><?= $r['empresa'];?></td> 
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= date('d/m/Y', strtotime($r['data_er']));?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['hora_er'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['placa'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['motorista'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['empresa'];?></td> 
                          <td>
-                            <a class="button button_small" href="<?= BASE_URL ?>/records/edit/<?= $r['id'] ?>">Editar</a>
-                            <a class="button button_small" href="<?= BASE_URL ?>/records/delete/<?= $r['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
+                            <?php if($r['flag'] == '1'){ ?>
+                                <a class="button button_small" href="<?= BASE_URL ?>/records/edit/<?= $r['id'] ?>">Editar</a>
+                                <a class="button button_small" href="<?= BASE_URL ?>/records/delete/<?= $r['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
+                            <? } else { ?>
+                               <a class="button button_small" href="<?= BASE_URL ?>/records/delete/<?= $r['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
+                            <?php }?> 
                         </td>                            
                     </tr>
                 <?php endforeach; ?>
@@ -102,17 +111,24 @@
                     <th width="180">Ações</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody>               
                 <?php foreach($records_list as $r): ?>                 
                     <tr>
-                        <td><?= date('d/m/Y', strtotime($r['data_er']));?></td>
-                        <td><?= $r['hora_er'];?></td>
-                        <td><?= $r['placa'];?></td>
-                        <td><?= $r['motorista'];?></td>
-                        <td><?= $r['empresa'];?></td> 
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= date('d/m/Y', strtotime($r['data_er']));?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['hora_er'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['placa'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['motorista'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['empresa'];?></td> 
                          <td>
-                            <a class="button button_small" href="<?= BASE_URL ?>/records/edit/<?= $r['id'] ?>">Editar</a>
-                            <a class="button button_small" href="<?= BASE_URL ?>/records/delete/<?= $r['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
+                            <?php if($r['flag'] == '1'){ ?>
+                                
+                                <a class="button button_small"'" href="<?= BASE_URL ?>/records/edit/<?= $r['id'] ?>">Editar</a>
+                                <a class="button button_small" href="<?= BASE_URL ?>/records/delete/<?= $r['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
+                                <?php } else { ?>
+                                    <a class="button button_small" href="<?= BASE_URL ?>/records/delete/<?= $r['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')"> Excluir</a>
+                                <?php }?>
+                               
+
                         </td>                       
                     </tr>
                 <?php endforeach; ?>                                

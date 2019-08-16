@@ -1,10 +1,4 @@
 <link href="<?= BASE_URL ?>/assets/css/report.css" rel="stylesheet"/>
-<div id="report-header">        
-    <img src="<?php BASE_URL ?>assets/images/logo.png"/ height="60" width="60">    
-    <h1>Relatório de Veiculos</h1>
-    
-</div>   
-  
 <fieldset>
     <?php
     if (isset($filters['veiculo_motorista']) && !empty($filters['veiculo_motorista'])) {
@@ -30,11 +24,11 @@
 <table width="100%" class="table_report">
     <thead>
         <tr>
-            <th>Tipo Veículo</th>                
-            <th>Motorista Veículo</th>                
-            <th>Placa Veículo</th>                
+            <th>Tipo</th>                
+            <th>Motorista</th>                
+            <th>Placa</th>                
             <th>Empresa</th>                
-            <th>Status Veículo</th>                
+            <th>Status</th>                
         </tr>
     </thead>    
  

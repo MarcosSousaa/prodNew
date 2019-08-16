@@ -1,5 +1,5 @@
 <?php
-class usersController extends Controller {
+class UsersController extends Controller {
     private $user;
     public function __construct() {
         parent::__construct();
@@ -30,6 +30,7 @@ class usersController extends Controller {
             if (isset($_POST['cpf']) && !empty($_POST['cpf'])) {                
                 $cpf = addslashes($_POST['cpf']);
                 $cpf = str_replace(".", "", $cpf);
+                $cpf = str_replace("-", "", $cpf);
                 $name = addslashes($_POST['name']);
                 $turno = addslashes($_POST['turno']);
                 $group = addslashes($_POST['group']);

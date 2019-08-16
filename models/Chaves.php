@@ -2,7 +2,7 @@
 
 class Chaves extends Model{
 	public function getList($offset){
-		$sql = "SELECT * FROM CHAVES LIMIT $offset, 10";
+		$sql = "SELECT * FROM chaves LIMIT $offset, 10";
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute();
 		if($stmt->rowCount() > 0){
@@ -11,7 +11,7 @@ class Chaves extends Model{
 	}
 
 	public function getCount(){
-		$sql = "SELECT COUNT(*) as c FROM CHAVES";
+		$sql = "SELECT COUNT(*) as c FROM chaves";
         $stmt = $this->db->prepare($sql);        
         $stmt->execute();
         $row = $stmt->fetch();
@@ -20,7 +20,7 @@ class Chaves extends Model{
 
 	public function getInfo($id){
 		$array = array();
-		$sql = "SELECT * FROM CHAVES WHERE id = :id";
+		$sql = "SELECT * FROM chaves WHERE id = :id";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
@@ -33,7 +33,7 @@ class Chaves extends Model{
 	}
 
 	public function add($cod, $local){
-		$sql = "INSERT INTO CHAVES SET cod = :cod, local = :local";
+		$sql = "INSERT INTO chaves SET cod = :cod, local = :local";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindParam(":cod", $cod);
 		$stmt->bindParam(":local", $local);
@@ -42,7 +42,7 @@ class Chaves extends Model{
 	}
 
 	public function edit($cod,$local,$status, $id){
-		$sql = "UPDATE CHAVES SET cod = :cod, local = :local, status = :status WHERE id = :id";
+		$sql = "UPDATE chaves SET cod = :cod, local = :local, status = :status WHERE id = :id";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindParam(":cod", $cod);
 		$stmt->bindParam(":local", $local);
@@ -52,7 +52,7 @@ class Chaves extends Model{
 	}
 
 	public function inat($id){
-		$sql = "UPDATE CHAVES SET status = 'I' WHERE id = :id";
+		$sql = "UPDATE chaves SET status = 'I' WHERE id = :id";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
@@ -61,7 +61,7 @@ class Chaves extends Model{
 
 	public function getChaves(){
 		$data = "";
-		$sql = "SELECT id,cod,local FROM CHAVES";
+		$sql = "SELECT id,cod,local FROM chaves";
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute();
 		if($stmt->rowCount() > 0){
@@ -76,7 +76,7 @@ class Chaves extends Model{
 	}
 
 	public function getChaveFiltrada($chave_name,$local_name){
-		$sql = "SELECT cod,local FROM CHAVES ";
+		$sql = "SELECT cod,local FROM chaves ";
 		$where = array();
 
 		if(!empty($chave_name)){
@@ -92,8 +92,8 @@ class Chaves extends Model{
 			
 		}
 		$sql .= implode(' AND ', $where);
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute();
         if($stmt->rowCount() > 0){
         	return $stmt->fetchAll();
         }

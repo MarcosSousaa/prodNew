@@ -1,5 +1,5 @@
 <?php
-class chavesController extends Controller {
+class ChavesController extends Controller {
     private $user;
     public function __construct() {
         parent::__construct();

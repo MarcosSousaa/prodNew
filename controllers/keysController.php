@@ -1,6 +1,6 @@
 <?php
 
-	class keysController extends Controller{
+	class KeysController extends Controller{
 
 		private $user;
     	public function __construct() {

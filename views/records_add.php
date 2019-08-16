@@ -18,7 +18,7 @@
         <input type="text" name="data_er" id="data_er" readonly>        
         <br>
         <label for="">Horario</label>
-        <input type="text" name="hora_er" id="hora_er" readonly>        
+        <input type="text" name="hora_er" id="hora_er">        
     </section>                              
     <br /><br />
     <div>       

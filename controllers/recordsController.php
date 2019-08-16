@@ -1,5 +1,5 @@
 <?php
-class recordsController extends Controller {
+class RecordsController extends Controller {
     private $user;
     public function __construct() {
         parent::__construct();
@@ -14,7 +14,7 @@ class recordsController extends Controller {
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
              
-        if ($this->user->hasPermission('records_view')) { 
+        if ($this->user->hasPermission('records_view')) {             
         	$r = new Records();
         	$offset = 0; 
 
@@ -41,12 +41,13 @@ class recordsController extends Controller {
                 $data2 = date('Y-m-d');
             }
 
-            $data['records_list'] = $r->getList($data1,$data2,$tipo);
+            $data['records_list'] = $r->getList($data1,$data2,$tipo);            
             if(empty($data['records_list'])){
                 $tipo = '1';                
                 $data1 = date('Y-m-d');
                 $data2 = date('Y-m-d');
                 $data['records_list'] = $r->getList($data1,$data2,$tipo);
+                
                 if(empty($data['records_list'])){
                     $tipo = '2';                
                     $data1 = date('Y-m-d');
@@ -59,7 +60,8 @@ class recordsController extends Controller {
                 }
    
             }else {
-                $this->loadTemplate('records', $data);    
+                $this->loadTemplate('records', $data);
+
             }
             //$data['records_count'] = $r->getCount($tipo);
             //$data['p_count'] = ceil($data['records_count'] / 10); //sempre arredonda pra cima                    

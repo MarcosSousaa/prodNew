@@ -1,9 +1,8 @@
 <?php
-require_once './libs/dompdf/src/Autoloader.php';
-require_once './libs/dompdf/lib/html5lib/Parser.php';          
-Dompdf\Autoloader::register();
-use Dompdf\Dompdf;   
-class reportsController extends Controller {
+use Mpdf\Mpdf;
+require_once './libs/vendor/autoload.php';
+date_default_timezone_set('America/Sao_Paulo');
+class ReportsController extends Controller {
 	private $user;
 	public function __construct(){
 		$this->user = new Users();
@@ -48,21 +47,11 @@ class reportsController extends Controller {
             $this->loadView('report_chaves_pdf', $data);
             $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html
             ob_end_clean(); // zerando a memoria quanto a este processo
-            $dompdf = new Dompdf();
-
-            $dompdf->loadHtml($html);
-            // (Optional) Orientacao do papel
-            /*
-                PORTRAIT = RETRATO
-                LANDSCAPE = PAISAGEM
-            */
-    		$dompdf->setPaper('A4', 'portrait');
-    		// Render the HTML as PDF
-    		$dompdf->render();
-    		$canvas = $dompdf->get_canvas(); 
-    		$canvas->page_text(510, 18, "Pág. {PAGE_NUM}/{PAGE_COUNT}",'' , 6, array(0,0,0)); //header
-    		// Saida no browser
-    		$dompdf->stream('relatorio.pdf', array('Attachment' => false));
+            $mpdf = new Mpdf();
+            $mpdf->SetHeader('Portaria Ind Bandeirante| Relatório de Chaves Cadastradas |Pág. - {PAGENO}');
+             $mpdf->SetFooter('Relatorio impresso :'.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
 
 		}else {
 			header("Location:" . BASE_URL);
@@ -94,23 +83,13 @@ class reportsController extends Controller {
             $data['filters'] = $_GET;            
             ob_start(); // iniciando buffer [armazenando na memoria o que era pra ser carregado na view]
             $this->loadView('report_veiculos_pdf', $data);
-            $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html
+            $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html            
             ob_end_clean(); // zerando a memoria quanto a este processo
-            $dompdf = new Dompdf();
-
-            $dompdf->loadHtml($html);
-            // (Optional) Orientacao do papel
-            /*
-                PORTRAIT = RETRATO
-                LANDSCAPE = PAISAGEM
-            */
-    		$dompdf->setPaper('A4', 'landscape');
-    		// Render the HTML as PDF
-    		$dompdf->render();
-    		$canvas = $dompdf->get_canvas(); 
-    		$canvas->page_text(510, 18, "Pág. {PAGE_NUM}/{PAGE_COUNT}",'' , 6, array(0,0,0)); //header
-    		// Output the generated PDF to Browser
-    		$dompdf->stream('relatorio.pdf', array('Attachment' => false));
+            $mpdf = new Mpdf();
+            $mpdf->SetHeader('Portaria Ind Bandeirante| Relatório de Veículos Cadastrados |Pág. - {PAGENO}');
+             $mpdf->SetFooter('Relatorio impresso :'.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
 
 
 		}else {
@@ -132,36 +111,65 @@ class reportsController extends Controller {
     }
 
     public function entsaiveiculos_pdf(){
-        if($this->user->hasPermission('report_entsaiveiculos')){
-            $data1 = addslashes($_GET['ent_sai_data_inicial']);
+        if($this->user->hasPermission('report_entsaiveiculos')){                
+            $data1 = addslashes($_GET['ent_sai_data_inicial']);            
             $data2 = addslashes($_GET['ent_sai_data_final']);            
             $placa = addslashes($_GET['ent_sai_placa']);  
-            $nome = addslashes($_GET['ent_sai_nome']);          
+            $motorista = addslashes($_GET['ent_sai_motorista']);          
             $empresa = addslashes($_GET['ent_sai_empresa']);          
             $tipo = '2';
-            $records = new Records();
-            $data['records_list'] = $records->getEntradaSaida($data1,$data2,$placa,$nome,$empresa,$tipo);            
+            $records = new Records(); 
+            $data['records_list'] = $records->getEntradaSaida($data1,$data2,$placa,$motorista,$empresa,$tipo);                                    
             $data['filters'] = $_GET;            
             ob_start(); // iniciando buffer [armazenando na memoria o que era pra ser carregado na view]
-            $this->loadView('report_veiculos_pdf', $data);
-            $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html
+            $this->loadView('report_entsaiveiculos_pdf', $data);
+            $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html            
             ob_end_clean(); // zerando a memoria quanto a este processo
-            $dompdf = new Dompdf();
+            $mpdf = new Mpdf();
+            $mpdf->SetHeader('Portaria Ind Bandeirante| Relatório de Entrada e Saída Veículos |Pág. - {PAGENO}');
+            $mpdf->SetFooter('Relatorio impresso :'.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
 
-            $dompdf->loadHtml($html);
-            // (Optional) Orientacao do papel
-            /*
-                PORTRAIT = RETRATO
-                LANDSCAPE = PAISAGEM
-            */
-            $dompdf->setPaper('A4', 'landscape');
-            // Render the HTML as PDF
-            $dompdf->render();
-            $canvas = $dompdf->get_canvas(); 
-            $canvas->page_text(510, 18, "Pág. {PAGE_NUM}/{PAGE_COUNT}",'' , 6, array(0,0,0)); //header
-            // Output the generated PDF to Browser
-            $dompdf->stream('relatorio.pdf', array('Attachment' => false));
+        }else {
+            header("Location:" . BASE_URL);
+            exit;
+        }
+    }
 
+
+    public function recebimentoColeta(){
+        $data = array();
+        // informações para o template
+        $data['nome_usuario'] = $this->user->getName();
+        if($this->user->hasPermission('report_recebcoleta')){
+            $this->loadTemplate('report_recebcoleta', $data);
+        }else {
+            header("Location: ". BASE_URL);
+            exit();
+        }       
+    }
+
+    public function recebimentoColeta_pdf(){
+        if($this->user->hasPermission('report_recebcoleta')){           
+            $data1 = addslashes($_GET['receb_colet_data_inicial']);            
+            $data2 = addslashes($_GET['receb_colet_data_final']);            
+            $placa = addslashes($_GET['receb_colet_placa']);  
+            $motorista = addslashes($_GET['receb_colet_motorista']);          
+            $empresa = addslashes($_GET['receb_colet_empresa']);          
+            $tipo = '1';
+            $records = new Records(); 
+            $data['records_list'] = $records->getRecebColet($data1,$data2,$placa,$motorista,$empresa,$tipo);                                    
+            $data['filters'] = $_GET;            
+            ob_start(); // iniciando buffer [armazenando na memoria o que era pra ser carregado na view]
+            $this->loadView('report_recebcoleta_pdf', $data);
+            $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html            
+            ob_end_clean(); // zerando a memoria quanto a este processo
+            $mpdf = new Mpdf();
+            $mpdf->SetHeader('Portaria Ind Bandeirante| Relatório de Entrada e Saída Veículos |Pág. - {PAGENO}');
+             $mpdf->SetFooter('Relatorio impresso :'.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
 
         }else {
             header("Location:" . BASE_URL);

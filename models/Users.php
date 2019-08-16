@@ -111,7 +111,7 @@ class Users extends Model{
         $stmt->bindParam(":cpf", $cpf);
         $stmt->execute();
         $row = $stmt->fetch();
-        if ($row['c'] == '0') { //não há usuario cadastrado
+        if ($row['c'] == '0') { //não há usuario cadastrado            
             $stmt = $this->db->prepare("INSERT INTO users SET cpf = :cpf, name = :name, turno = :turno, id_group = :id_group");
             $stmt->bindParam(":cpf", $cpf);            
             $stmt->bindParam(":name", $name);
@@ -121,6 +121,8 @@ class Users extends Model{
             return true;
         } else {
             return false;
+            echo 'veio para aqui';
+            exit();
         }
     }
     public function edit($name , $turno, $group, $id) {

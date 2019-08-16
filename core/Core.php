@@ -3,9 +3,9 @@
 class Core{
 	public function run(){
 		$url = '/'. ( (isset($_GET['q'])) ? $_GET['q'] : '');
-		$params = array();        
+		$params = array();
 		if( !empty($url) && $url != '/'){
-			$url = explode('/', $url);
+            $url = explode('/', $url);
 			array_shift($url); // Remove a posicao do $array[0]
 			// Pegando qual controller
             $currentController = ucfirst($url[0]) . 'Controller';
@@ -22,11 +22,11 @@ class Core{
                 $params = $url;
             }
         } else {
-            $currentController = 'homeController';
+            $currentController = 'HomeController';
             $currentAction = 'index';
+        
         }
         $controller = new $currentController();
         call_user_func_array(array($controller, $currentAction), $params);
-
 	}
 }
