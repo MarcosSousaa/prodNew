@@ -1,19 +1,21 @@
 <?php
 class VeiculosController extends Controller {
     private $user;
+    private $menu;
     public function __construct() {
         parent::__construct();
         $this->user = new Users();
+        $this->menu = new Menu();   
         if (!$this->user->isLogged()) {
             header("Location: " . BASE_URL . "/login");
             exit();
         }
         $this->user->setLoggedUser();
+        $this->menu->setMenu($this->user->getIdGroup());    
     }
     public function index() {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
-             
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
         if ($this->user->hasPermission('veiculos_view')) { 
         	$v = new Veiculos();
         	$offset = 0; 
@@ -41,8 +43,7 @@ class VeiculosController extends Controller {
 
     public function add() {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
-             
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
         if ($this->user->hasPermission('veiculos_add')) { 
         	$v = new Veiculos();
         	if(isset($_POST['motorista']) && !empty($_POST['motorista'])){
@@ -64,15 +65,15 @@ class VeiculosController extends Controller {
 
     public function edit($id) {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
-             
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
         if ($this->user->hasPermission('veiculos_edit')) { 
         	$v = new Veiculos();
         	if(isset($_POST['motorista']) && !empty($_POST['motorista'])){        		
-        		 $motorista = strtoupper(addslashes($_POST['motorista']));        	 
-        		  $empresa = strtoupper(addslashes($_POST['empresa']));
-                  $status = strtoupper(addslashes($_POST['status']));
-        		 $v->edit($motorista, $empresa, $status, $id);
+    		  $motorista = strtoupper(addslashes($_POST['motorista']));	 
+    		  $empresa = strtoupper(addslashes($_POST['empresa']));
+              $placa = strtoupper(addslashes($_POST['placa']));
+              $status = strtoupper(addslashes($_POST['status']));
+		      $v->edit($motorista, $empresa, $status,$placa, $id);
         		 header("Location:". BASE_URL.'/veiculos');
         	}
         	
@@ -84,10 +85,24 @@ class VeiculosController extends Controller {
         }
     }
 
+     public function view($id) {
+        // informações para o template
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
+        if ($this->user->hasPermission('veiculos_edit')) { 
+            $v = new Veiculos();
+            
+            $data['veiculos_info'] = $v->getInfo($id);            
+            $this->loadTemplate('veiculos_view', $data);
+        } 
+        else {            
+            header("Location: " . BASE_URL);
+        }
+    }
+
     public function inat($id){
         $data = array();
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();     
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);    
         if ($this->user->hasPermission('veiculos_del')) {
             $v = new Veiculos();
             $v->inat($id);

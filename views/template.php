@@ -1,3 +1,4 @@
+<?php date_default_timezone_set('America/Sao_Paulo'); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,35 +11,36 @@
         </script>
         <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script.js"></script>
         <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.mask.js"></script>
+        <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.validate.min.js"></script>
     </head>
     <body>
 
         <div class="leftmenu">
            <div class="company_name">
                 <img src="<?= BASE_URL ?>/assets/images/logo_branco.png" height="70" width="70">
-            </div>
+            </div>            
             <div class="menuarea">
                 <ul>
-                    <li class=""><a href="<?= BASE_URL ?>">Home</a></li>
-                    <li><a href="<?= BASE_URL ?>/permissions">Permissões</a></li>
-                    <li><a href="<?= BASE_URL ?>/users">Usuários</a></li>
-                    <li><a href="<?= BASE_URL ?>/records">Entrada-Saída</a></li>
-                    <li><a href="<?= BASE_URL ?>/veiculos">Veículos</a></li>
-                    <li><a href="<?= BASE_URL ?>/chaves">Chaves</a></li>                    
-                    <li><a href="<?= BASE_URL ?>/reports">Relatórios</a></li>
+                    <?php                        
+                        for($i = 0; $i < sizeof($viewData['info_template']['menu_descricao']);$i++){
+                            echo 
+                                '<li class="'.$viewData['info_template']['menu_class'][$i].'">
+                                    <a href="'.BASE_URL.$viewData['info_template']['menu_caminho'][$i].'">'
+                                        .$viewData['info_template']['menu_descricao'][$i].'
+                                    </a>
+                                </li>';    
+                        }
+                    ?>                                                    
                 </ul>
             </div>
         </div>
-
-
         <div class="container">
             <div class="top">
-                <div class="top_right"><a href="<?= BASE_URL ?>/login/logout">Sair</a></div>
-                <div class="top_right"><?= $viewData['nome_usuario'] ?></div>
+                <div class="top_right"><a href="<?= BASE_URL ?>/login/logout" style="background: #000; padding: 13px;">Sair</a></div>
+                <div class="top_right"><strong><?= $viewData['info_template']['nome_usuario']. ' - '.$viewData['info_template']['name']['name'] ?></strong></div>
             </div>
 
             <div class="area">
-                
                 <?php $this->loadViewInTemplate($viewName, $viewData) ?>
             </div>
         </div>

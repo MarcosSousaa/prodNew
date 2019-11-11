@@ -25,18 +25,24 @@
             <th>Entrada</th>                                          
             <th>Placa </th> 
             <th>Motorista</th>
+            <th>RG</th>
             <th>Empresa</th>                               
-            <th>Saída</th>                                            
+            <th>Saída</th>
+            <th>Obs.</th>                                            
         </tr>
     </thead>            
     <?php foreach ($records_list as $records_item): ?>
         <tbody>
             <tr>
                 <td><?= date('d/m/Y',strtotime($records_item['data_er'])). ' - '. substr($records_item['hora_er'], 0, -3)?></td>                
-                <td><?= $records_item['placa'] ?></td>
-                <td><?= $records_item['motorista'] ?></td>
-                <td><?= $records_item['empresa'] ?></td>   
-                <td><?= !empty($records_item['data_sr']) ? date('d/m/Y',strtotime($records_item['data_sr'])). ' - '. substr($records_item['hora_sr'], 0, -3) : " Sem saída" ?></td>
+                <td><?= $records_item['placa_v'] ?></td>
+                <td><?= $records_item['motorista_v'] ?></td>
+                <td><?= $records_item['rg'] ?></td>
+                <td><?= $records_item['empresa_v'] ?></td>   
+                <td><?= !empty($records_item['data_sr']) ? date('d/m/Y',strtotime($records_item['data_sr'])). ' - '. substr($records_item['hora_sr'], 0, -3) : " Sem saída" ?>
+                    
+                </td>
+                <td><?= $records_item['obs'] ?></td>
             </tr>
     <?php endforeach; ?>
         </tbody>

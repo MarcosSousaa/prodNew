@@ -1,19 +1,22 @@
 <?php
 class UsersController extends Controller {
     private $user;
+    private $menu;
     public function __construct() {
         parent::__construct();
         $this->user = new Users();
+        $this->menu = new Menu();   
         if (!$this->user->isLogged()) {
             header("Location: " . BASE_URL . "/login");
             exit();
         }
         $this->user->setLoggedUser();
+        $this->menu->setMenu($this->user->getIdGroup());    
     }
-    public function index() {
+    public function index(){
+        $data = array();
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
-             
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
         if ($this->user->hasPermission('usuario_view')) {            
             $data['users_list'] = $this->user->getList();
             $this->loadTemplate('users', $data);
@@ -22,8 +25,9 @@ class UsersController extends Controller {
         }
     }
     public function add() {
+        $data = array();
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();     
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);     
         if ($this->user->hasPermission('usuario_view')) {
             $p = new Permissions();
             $data['group_list'] = $p->getGroupList();
@@ -49,8 +53,9 @@ class UsersController extends Controller {
         }
     }
     public function edit($id) {
+        $dara = array();
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();     
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);      
         if ($this->user->hasPermission('usuario_view')) {
             $p = new Permissions();
             $data['user_info'] = $this->user->getInfo($id);
@@ -71,8 +76,8 @@ class UsersController extends Controller {
     }
     public function delete($id) {
         $data = array();
-        // informações para o template
-        $data['nome_usuario'] = $this->user->getName();     
+       // informações para o template
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
         if ($this->user->hasPermission('usuario_view')) {
             $p = new Permissions();
             $this->user->delete($id);

@@ -4,19 +4,22 @@ require_once './libs/vendor/autoload.php';
 date_default_timezone_set('America/Sao_Paulo');
 class ReportsController extends Controller {
 	private $user;
+    private $menu;
 	public function __construct(){
 		$this->user = new Users();
+        $this->menu = new Menu();   
 		if(!$this->user->isLogged()){
 			header("Location:".BASE_URL."login");
 			exit();
 		}
 		$this->user->setLoggedUser();
+        $this->menu->setMenu($this->user->getIdGroup());    
 	}
 
 	public function index(){
 		$data = array();
-		// informações para o template
-        $data['nome_usuario'] = $this->user->getName();		
+        // informações para o template
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   	
 		if($this->user->hasPermission('report_view')){
 			$this->loadTemplate('report', $data);
 		}else {
@@ -26,8 +29,8 @@ class ReportsController extends Controller {
 
 	public function chaves(){
 		$data = array();
-		// informações para o template
-        $data['nome_usuario'] = $this->user->getName();
+	    // informações para o template
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
         if($this->user->hasPermission('report_chaves')){
         	$this->loadTemplate('report_chaves', $data);
         }else {
@@ -61,8 +64,8 @@ class ReportsController extends Controller {
 
 	public function veiculos(){
 		$data = array();
-		// informações para o template
-        $data['nome_usuario'] = $this->user->getName();
+        // informações para o template
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
         if($this->user->hasPermission('report_veiculos')){
         	$this->loadTemplate('report_veiculos', $data);
         }else {
@@ -101,7 +104,7 @@ class ReportsController extends Controller {
     public function entradaSaidaVeiculos(){
         $data = array();
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
         if($this->user->hasPermission('report_entsaiveiculos')){
             $this->loadTemplate('report_entsaiveiculos', $data);
         }else {
@@ -114,9 +117,9 @@ class ReportsController extends Controller {
         if($this->user->hasPermission('report_entsaiveiculos')){                
             $data1 = addslashes($_GET['ent_sai_data_inicial']);            
             $data2 = addslashes($_GET['ent_sai_data_final']);            
-            $placa = addslashes($_GET['ent_sai_placa']);  
-            $motorista = addslashes($_GET['ent_sai_motorista']);          
-            $empresa = addslashes($_GET['ent_sai_empresa']);          
+            $placa = addslashes(strtoupper($_GET['ent_sai_placa']));  
+            $motorista = addslashes(strtoupper($_GET['ent_sai_motorista']));          
+            $empresa = addslashes(strtoupper($_GET['ent_sai_empresa']));          
             $tipo = '2';
             $records = new Records(); 
             $data['records_list'] = $records->getEntradaSaida($data1,$data2,$placa,$motorista,$empresa,$tipo);                                    
@@ -125,9 +128,9 @@ class ReportsController extends Controller {
             $this->loadView('report_entsaiveiculos_pdf', $data);
             $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html            
             ob_end_clean(); // zerando a memoria quanto a este processo
-            $mpdf = new Mpdf();
+            $mpdf = new Mpdf(['orientation' => 'L']);
             $mpdf->SetHeader('Portaria Ind Bandeirante| Relatório de Entrada e Saída Veículos |Pág. - {PAGENO}');
-            $mpdf->SetFooter('Relatorio impresso :'.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
+            $mpdf->SetFooter('Relatorio impresso : '.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
             $mpdf->WriteHTML($html);
             $mpdf->Output();
 
@@ -141,7 +144,7 @@ class ReportsController extends Controller {
     public function recebimentoColeta(){
         $data = array();
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
         if($this->user->hasPermission('report_recebcoleta')){
             $this->loadTemplate('report_recebcoleta', $data);
         }else {
@@ -154,9 +157,9 @@ class ReportsController extends Controller {
         if($this->user->hasPermission('report_recebcoleta')){           
             $data1 = addslashes($_GET['receb_colet_data_inicial']);            
             $data2 = addslashes($_GET['receb_colet_data_final']);            
-            $placa = addslashes($_GET['receb_colet_placa']);  
-            $motorista = addslashes($_GET['receb_colet_motorista']);          
-            $empresa = addslashes($_GET['receb_colet_empresa']);          
+            $placa = addslashes(strtoupper($_GET['receb_colet_placa']));  
+            $motorista = addslashes(strtoupper($_GET['receb_colet_motorista']));          
+            $empresa = addslashes(strtoupper($_GET['receb_colet_empresa']));          
             $tipo = '1';
             $records = new Records(); 
             $data['records_list'] = $records->getRecebColet($data1,$data2,$placa,$motorista,$empresa,$tipo);                                    
@@ -165,9 +168,46 @@ class ReportsController extends Controller {
             $this->loadView('report_recebcoleta_pdf', $data);
             $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html            
             ob_end_clean(); // zerando a memoria quanto a este processo
-            $mpdf = new Mpdf();
+            $mpdf = new Mpdf(['orientation' => 'L']);
+            $mpdf->SetHeader('Portaria Ind Bandeirante| Relatório de Recebimento e Coleta de Materiais |Pág. - {PAGENO}');
+             $mpdf->SetFooter('Relatorio impresso : '.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
+
+        }else {
+            header("Location:" . BASE_URL);
+            exit;
+        }
+    }
+
+        public function controleChaves(){
+        $data = array();
+        // informações para o template
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
+        if($this->user->hasPermission('report_controlechaves')){
+            $this->loadTemplate('report_controleChaves', $data);
+        }else {
+            header("Location: ". BASE_URL);
+            exit();
+        }       
+    }
+
+    public function controleChaves_pdf(){
+        if($this->user->hasPermission('report_controlechaves')){           
+            $data1 = addslashes($_GET['control_chaves_data_inicial']);            
+            $data2 = addslashes($_GET['control_chaves_data_final']);            
+            $local = addslashes(strtoupper($_GET['control_chaves_local']));            
+            $tipo = '0';
+            $records = new Records(); 
+            $data['records_list'] = $records->getControleChaves($data1,$data2,$local,$tipo);                                    
+            $data['filters'] = $_GET;            
+            ob_start(); // iniciando buffer [armazenando na memoria o que era pra ser carregado na view]
+            $this->loadView('report_controleChaves_pdf', $data);
+            $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html            
+            ob_end_clean(); // zerando a memoria quanto a este processo
+            $mpdf = new Mpdf(['orientation' => 'L']);
             $mpdf->SetHeader('Portaria Ind Bandeirante| Relatório de Entrada e Saída Veículos |Pág. - {PAGENO}');
-             $mpdf->SetFooter('Relatorio impresso :'.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
+             $mpdf->SetFooter('Relatorio impresso : '.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
             $mpdf->WriteHTML($html);
             $mpdf->Output();
 

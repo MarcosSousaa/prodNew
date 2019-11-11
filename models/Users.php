@@ -69,6 +69,12 @@ class Users extends Model{
     public function getCpf() {
         return $this->userInfo['cpf'];
     }
+    public function getIdGroup(){
+        return $this->userInfo['id_group'];
+    }
+    public function getGroupName($cpf){
+        return $this->permissions->grupoPorUsuario($cpf);
+    }
 
     public function getInfo($id) {
         $array = array();

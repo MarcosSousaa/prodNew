@@ -65,6 +65,7 @@ class Permissions extends Model {
         if ($stmt->rowCount() > 0) {
             $array = $stmt->fetch();
             $array['params'] = explode(",", $array['params']);
+            $array['menu_acesso'] = explode(",", $array['menu_acesso']);
         }
         return $array;
     }
@@ -74,20 +75,24 @@ class Permissions extends Model {
         $stmt->bindParam(':name', $name);        
         $stmt->execute();
     }
-    public function addGroup($name, $plist) {
+    public function addGroup($name, $plist, $mlist) {
         $params = implode(",", $plist);
-        $sql = "INSERT INTO groups SET name = :name, params = :params";
+        $menu = implode(",", $mlist);
+        $sql = "INSERT INTO groups SET name = :name, params = :params, menu_acesso = :menu";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':name', $name);        
         $stmt->bindParam(':params', $params);
+        $stmt->bindParam(':menu', $menu);
         $stmt->execute();
     }
-    public function editGroup($name, $plist, $id) {
+    public function editGroup($name, $plist,$mlist, $id) {
         $params = implode(",", $plist);
-        $sql = "UPDATE groups SET name = :name, params = :params WHERE id = :id";
+        $menu = implode(",", $mlist);
+        $sql = "UPDATE groups SET name = :name, params = :params, menu_acesso = :menu WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':name', $name);        
         $stmt->bindParam(':params', $params);
+        $stmt->bindParam(':menu', $menu);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
@@ -106,5 +111,16 @@ class Permissions extends Model {
             $stmt->bindParam(':id', $id);
             $stmt->execute();
         }
+    }
+
+    public function grupoPorUsuario($cpf){
+        $sql = "SELECT groups.name FROM users INNER JOIN groups ON users.id_group = groups.id WHERE users.cpf = :cpf";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":cpf", $cpf);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt->fetch();
+        }
+        return false;
     }
 }

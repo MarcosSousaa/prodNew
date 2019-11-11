@@ -16,6 +16,10 @@ spl_autoload_register( function($class){
 		require_once './core/'.$class.'.php';
 	}
 
+	if(file_exists('./util/' . $class . '.php')){
+        require_once './util/' . $class . '.php';
+    }
+
 
 });
 

@@ -12,6 +12,7 @@ input[type=text],
 input[type=email],
 input[type=password],
 input[type=number],
+input[type=date],
 select,
 textarea{
     width: 100%;
@@ -25,8 +26,10 @@ textarea{
 textarea{
     height: 100px;
     border: 1px solid #CCC;
+    text-align: left;
 }
 input[type=submit],
+input[type=button],
 button,
 .button{
     border: 0;
@@ -111,26 +114,30 @@ table td{
     display: block;
 }
 
-.menuarea li:nth-child(1){
+.menuHome{
     background-image: url(../images/icons/icon-home.png);
 }
-.menuarea li:nth-child(2){
+.menuPermission{
     background-image: url(../images/icons/icon-padlock.png);
 }
-.menuarea li:nth-child(3){
+.menuUsers{
     background-image: url(../images/icons/icon-users.png);
 }
-.menuarea li:nth-child(4){
+.menuRecords{
     background-image: url(../images/icons/icon-records.png);
 }
-.menuarea li:nth-child(5){
+.menuChaves{
     background-image: url(../images/icons/icon-control-keys.png);
 }
-.menuarea li:nth-child(6){
+.menuVeiculos{
     background-image: url(../images/icons/icon-car.png);
 }
-.menuarea li:nth-child(7){
+.menuReports{
     background-image: url(../images/icons/icon-reports.png);
+}
+
+.menuPainel{
+    background-image: url(../images/icons/icon-config.png);
 }
 
 
@@ -187,8 +194,10 @@ table td{
     padding-top: 20px;
 }
 .p_item{
-    height: 35px;
+    height: 35px;    
     line-height: 35px;
+    float: left;
+    width: 30%;    
 }
 .warn{
     padding: 15px;
@@ -264,6 +273,33 @@ div.pager {
     margin: 1em 0;
 }
 
+
+.searchresults{
+    width: 320px;
+    background-color: #2980b9;
+    color: #FFF;
+    position: absolute;
+    border: 1px solid #DDD;
+
+}
+
+.si{
+    height: 20px;
+    line-height: 20px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+.si a {
+    color: #FFF;
+    text-decoration: none;
+    display: block;
+}
+.si:hover {
+    background-color: #c0392b;
+}
+
+
+
 div.pager span {
     display: inline-block;
     width: 1.8em;
@@ -305,3 +341,29 @@ div.pager span.active {
     text-align: center;
     padding: 10px;
 }
+
+
+/* MODAL */
+.window{
+    display: none;
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #FFF;
+    z-index: 9900;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#mascara{
+    display:none;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:9000;
+    background-color:#000;
+}
+ 
+.close{display:block; text-align:right; color: red; text-decoration: none; font-size: 20px; font-weight: bold;}

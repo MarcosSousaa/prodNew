@@ -1,5 +1,5 @@
 <?php
-class permissionsController extends Controller {
+class painelController extends Controller {
     private $user;
     private $menu;
     public function __construct() {
@@ -15,17 +15,12 @@ class permissionsController extends Controller {
         $this->menu->setMenu($this->user->getIdGroup());    
     }
     public function index() {
-        $data = array();
-        $permissions = new Permissions();        
+        $data = array();        
         // informações para o template
         $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);           
-        if ($this->user->hasPermission('permissao_view')) {                        
-            $data['permissions_add'] = $this->user->hasPermission('permissao_add');
-            $data['permissions_addgroup'] = $this->user->hasPermission('permissao_addgroup');
-            $data['permission_list'] = $permissions->getList();
-            $data['menu_list'] = $this->menu->getList();            
-            $data['permission_groups_list'] = $permissions->getGroupList();
-            $this->loadTemplate('permissions', $data);
+        if ($this->user->hasPermission('painel_view')){
+            $data['menu_list'] = $this->menu->getList();                        
+            $this->loadTemplate('painel', $data);
         } else {            
             header("Location: " . BASE_URL);
         }

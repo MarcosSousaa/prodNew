@@ -1,18 +1,22 @@
 <?php
 class ChavesController extends Controller {
     private $user;
+    private $menu;
+
     public function __construct() {
         parent::__construct();
         $this->user = new Users();
+        $this->menu = new Menu();
         if (!$this->user->isLogged()) {
             header("Location: " . BASE_URL . "/login");
             exit();
         }
         $this->user->setLoggedUser();
+        $this->menu->setMenu($this->user->getIdGroup());        
     }
-    public function index() {
+    public function index() {        
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
              
         if ($this->user->hasPermission('chaves_view')) { 
         	$c = new Chaves();
@@ -42,7 +46,7 @@ class ChavesController extends Controller {
 
     public function add() {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
+       $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
              
         if ($this->user->hasPermission('chaves_add')) { 
         	$c = new Chaves();
@@ -61,8 +65,8 @@ class ChavesController extends Controller {
     }
 
     public function edit($id) {
-        // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
+       // informações para o template
+       $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
              
         if ($this->user->hasPermission('chaves_edit')) { 
         	$c = new Chaves();
@@ -85,12 +89,26 @@ class ChavesController extends Controller {
 
     public function inative($id) {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();
+       $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
              
         if ($this->user->hasPermission('chaves_edit')) { 
             $c = new Chaves();            
             $c->inat($id);
             header("Location:". BASE_URL.'/chaves');            
+        } 
+        else {            
+            header("Location: " . BASE_URL);
+        }
+    }
+
+    public function view($id) {
+        // informações para o template
+       $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
+             
+        if ($this->user->hasPermission('chaves_edit')) { 
+            $c = new Chaves();            
+            $data['chaves_info'] = $c->getInfo($id);
+            $this->loadTemplate('chaves_view', $data);
         } 
         else {            
             header("Location: " . BASE_URL);

@@ -8,6 +8,11 @@ $(document).ready(function () {
     $('#btn-filtro').click(function(){
         $('#btn-filtro').hide();
         $('.filtro-data').show();
+
+        $('#p_registro').on('change', function(){
+            var tipoReg = $('#p_registro').val();
+            $('form').submit();    
+        });
     });
     $('table.paginated').each(function() {
             var currentPage = 0;

@@ -16,6 +16,14 @@
 </div>
 
 <div class="report_item">
+	<a href="<?php echo BASE_URL;?>/reports/controleChaves">
+		<img src="<?php echo BASE_URL;?>/assets/images/icons/icon_report_ent_sai.png" alt="" height="60">
+		<br><br>
+		<strong>Controle de Chaves Retiradas-Devolvidas</strong>
+	</a>
+</div>
+
+<div class="report_item">
 	<a href="<?php echo BASE_URL;?>/reports/chaves">
 		<img src="<?php echo BASE_URL;?>/assets/images/icons/icon_report_chaves.png" alt="" height="60">
 		<br><br>
@@ -31,26 +39,3 @@
 	</a>
 </div>
 
-<div class="report_item">
-	<a href="<?php echo BASE_URL;?>/reports/users">
-		<img src="<?php echo BASE_URL;?>/assets/images/icons/icon_report_users.png" alt="" height="60">
-		<br><br>
-		<strong>Relação Usuarios</strong>
-	</a>
-</div>
-
-<div class="report_item">
-	<a href="<?php echo BASE_URL;?>/reports/permissions">
-		<img src="<?php echo BASE_URL;?>/assets/images/icons/icon_report_permissoes.png" alt="" height="60">
-		<br><br>
-		<strong>Relação Permissões</strong>
-	</a>
-</div>
-
-<div class="report_item">
-	<a href="<?php echo BASE_URL;?>/reports/groups">
-		<img src="<?php echo BASE_URL;?>/assets/images/icons/icon_report_groups.png" alt="" height="60">
-		<br><br>
-		<strong>Relação Grupos Sistema</strong>
-	</a>
-</div>

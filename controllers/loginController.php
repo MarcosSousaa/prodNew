@@ -7,7 +7,8 @@ class LoginController extends Controller {
 
 		if(isset($_POST['cpf']) && !empty($_POST['cpf'])){
 			$cpf = addslashes(filter_input(INPUT_POST, 'cpf'));
-
+			$cpf = str_replace(".", "", $cpf);
+			$cpf = str_replace("-", "", $cpf);
 			$u = new Users();
 
 			if($u->doLogin($cpf)){
@@ -24,6 +25,9 @@ class LoginController extends Controller {
 
 	public function logout(){
 		$u = new Users();
+		unset($_SESSION['data1']);
+		unset($_SESSION['data2']);
+		session_destroy();
 		$u->logout();
 		header("Location:".BASE_URL);
 	}
