@@ -187,48 +187,48 @@ $(document).ready(function(){
 */
 
 	$('#placa-reg').on('keyup',function(){
-			if($('#placa-reg').val().length >= 3){						
-					var filtro = $(this).val();
-					$.ajax({
-						url: BASE_URL+'/ajax/buscaVeiculos',
-						data: {filtro: filtro},
-						type: 'POST',
-						dataType: 'json'				
-					}).done(function(json){			
-						if($('.searchresults').length == 0){
-							$('#placa-reg').after('<div class="searchresults"></div>');
-						}
-						if(json != undefined){
-							$('.searchresults').css('left', $('#placa-reg').offset().left+'px');
-							$('.searchresults').css('top', $('#placa-reg').offset().top+$('#placa-reg').height()+'px');	
-							var html = '';
-							for(var i in json){				
-								html += '<div class="si"><a href="javascript:;" Onclick="addVeiculo(this)" data-id="'+json[i].id+'" data-placa="'+json[i].placa+'" data-motorista="'+json[i].motorista+'" data-empresa="'+json[i].empresa+'">'+json[i].placa+' -  '+json[i].motorista+'</a></div>';
-							}
-							$('.searchresults').html(html);
-							$('.searchresults').show();
-						}else {
-							$('#nome-reg').val('');
-								$('#empresa-reg').val('');					
-								var id = $('#modal').attr("href");
-			        			var alturaTela = $(document).height();
-			        			var larguraTela = $(window).width();
-			        			//colocando o fundo preto
-						        $('#mascara').css({'width':larguraTela,'height':alturaTela});
-						        $('#mascara').fadeIn(1000); 
-						        $('#mascara').fadeTo("slow",0.8);
-			        			var left = ($(window).width() /2) - ( $(id).width() / 2 );
-			        			var top = ($(window).height() / 2) - ( $(id).height() / 2 );
-				     		    $(id).css({'top':top,'left':left});
-			        			$(id).show();
-			        			$('.msgTitle').text("VEICULO NAO CADASTRADO");
-			        			$('.msgTitle').css('color','red');
-			        			$('input[name="placa_c"]').val($('#placa-reg').val().toUpperCase());
-						}
-					}).fail(function(){
-						alert ('falha');
-					});
+		if($('#placa-reg').val().length >= 3){						
+			var filtro = $(this).val();
+			$.ajax({
+				url: BASE_URL+'/ajax/buscaVeiculos',
+				data: {filtro: filtro},
+				type: 'POST',
+				dataType: 'json'				
+			}).done(function(json){			
+				if($('.searchresults').length == 0){
+					$('#placa-reg').after('<div class="searchresults"></div>');
 				}
+				if(json != undefined){
+					$('.searchresults').css('left', $('#placa-reg').offset().left+'px');
+					$('.searchresults').css('top', $('#placa-reg').offset().top+$('#placa-reg').height()+'px');	
+					var html = '';
+					for(var i in json){				
+						html += '<div class="si"><a href="javascript:;" Onclick="addVeiculo(this)" data-id="'+json[i].id+'" data-placa="'+json[i].placa+'" data-motorista="'+json[i].motorista+'" data-empresa="'+json[i].empresa+'">'+json[i].placa+' -  '+json[i].motorista+'</a></div>';
+					}
+					$('.searchresults').html(html);
+					$('.searchresults').show();
+				}else {
+					$('#nome-reg').val('');
+					$('#empresa-reg').val('');					
+					var id = $('#modal').attr("href");
+        			var alturaTela = $(document).height();
+        			var larguraTela = $(window).width();
+        			//colocando o fundo preto
+			        $('#mascara').css({'width':larguraTela,'height':alturaTela});
+			        $('#mascara').fadeIn(1000); 
+			        $('#mascara').fadeTo("slow",0.8);
+        			var left = ($(window).width() /2) - ( $(id).width() / 2 );
+        			var top = ($(window).height() / 2) - ( $(id).height() / 2 );
+	     		    $(id).css({'top':top,'left':left});
+        			$(id).show();
+        			$('.msgTitle').text("VEICULO NAO CADASTRADO");
+        			$('.msgTitle').css('color','red');
+        			$('input[name="placa_c"]').val($('#placa-reg').val().toUpperCase());
+				}
+				}).fail(function(){
+					alert ('falha');
+				});
+		}
 	});
 
 	/* TELA EDIÇÃO*/	

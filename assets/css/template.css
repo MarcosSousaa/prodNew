@@ -140,6 +140,18 @@ table td{
     background-image: url(../images/icons/icon-config.png);
 }
 
+.menuProducao{
+    background-image: url(../images/icons/icon-producao.png);
+}
+
+.menuLimp{
+    background-image: url(../images/icons/icon-cleaning.png);
+}
+
+.menuOp{
+    background-image: url(../images/icons/icon-op.png);
+}
+
 
 
 /******************************

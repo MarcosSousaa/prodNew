@@ -1,20 +1,24 @@
-<h1>Permissões</h1>
-
+<h1 style="text-align: center;">Produção</h1>
 <div class="tabarea">
-    <div class="tabitem activetab">Grupos de permissões</div>
-    <?php if($permissions_add) : ?>
-    <div class="tabitem">Permissões</div>
+    <div class="tabitem activetab">Lançamento de Produção</div>
+    <?php if($producao_add) : ?>
+    <div class="tabitem">Lançamento Acabamento</div>
     <?php endif ?>
 </div>
 
 <div class="tabcontent">
     <div class="tabbody">
-        <?php if($permissions_addgroup) : ?>
-        <a class="button" href="<?= BASE_URL ?>/permissions/add_group">Adicionar Grupo de Permissão</a>
+        <?php if($producao_add) : ?>
+        <a class="button" href="<?= BASE_URL ?>/producao/add_prod"> Adicionar Dados Produção</a>
         <?php endif; ?>
         <table width="100%">
             <tr>
-                <th>Nome do Grupo de Permissões</th>
+                <th>Data</th>
+                <th>Extrusora</th>
+                <th>Turno</th>
+                <th>Nome Operador</th>
+                <th>Numero Pedido</th>
+                <th>Quantidade KG</th>
                 <th width="160">Ações</th>
             </tr>
             <?php foreach ($permission_groups_list as $p): ?>
@@ -28,15 +32,15 @@
             <?php endforeach; ?>
         </table>
     </div>
-    <?php if($permissions_add) { ?>
+    <?php if($producao_addacab) { ?>
     <div class="tabbody">
-        <?php if($permissions_del) : ?>
-        <a class="button" href="<?= BASE_URL ?>/permissions/add">Adicionar Permissão</a>
+        <?php if($producao_addacab) : ?>
+        <a class="button" href="<?= BASE_URL ?>/permissions/add">Adicionar Dados Acabamento</a>
         <?php endif; ?>
         <table width="100%">
             <tr>
-                <th>Nome da Permissão</th>
-                <th>Nome Tecnico</th>
+                <th>Data</th>
+                <th>Extrusora</th>
                 <?php if($permissions_del) : ?>
                 <th width="50">Ações</th>
                 <?php endif; ?>
@@ -56,4 +60,4 @@
     </div>
 </div>
 <?php }?>
-<script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script_permissions.js"></script>
+<script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script_producao.js"></script>

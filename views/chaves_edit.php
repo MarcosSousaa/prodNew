@@ -1,4 +1,4 @@
-<h1>Chaves - Editar</h1>
+    <h1>Chaves - Editar</h1>
 
 <?php if (isset($error_msg) && !empty($error_msg)) : ?>
     <div class="warn"><?= $error_msg ?></div>

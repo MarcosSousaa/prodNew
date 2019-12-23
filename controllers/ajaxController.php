@@ -36,4 +36,11 @@ class AjaxController extends Controller {
         $veiculos = new Veiculos();
         $veiculos->add($tipo,$motorista,$placa,$empresa);        
     }
+
+    public function buscaOperador(){
+        $data = array();
+        $operador = new Operador();
+        $data = $operador->getOperador();        
+        echo $data;
+    }
 }

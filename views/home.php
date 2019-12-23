@@ -1,3 +1,4 @@
+<h1><?= $info_template['name']['name']; ?></h1>
 <h1 style="text-align: center;">Portaria - Indústria Bandeirante de Plásticos</h1>
 <div class="report_item">
 	<a href="<?php echo BASE_URL;?>/records">
