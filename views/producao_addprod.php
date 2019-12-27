@@ -36,56 +36,59 @@
         <legend>Situação Aprovação - Inicio </legend>
         <label for="hrlimp">Horario Inicio</label>
         <input type="text" name="hrini" id="hrini">
-        <span class="errorMsgHor"></span> 
+        <span class="errorMsgHorIni"></span> 
         <p>
             <input type="radio" name="aprovacaoini" id="aprovacaoini" value="1">
             <label for="aprovacaoini">Aprovado</label>
             <input type="radio" name="aprovacaoini" id="reprovacaoini" value="2">
             <label for="reprovacaoini">Reprovado</label>            
         </p>
-        <span class="errorMsgSitu"></span>
+        <span class="errorMsgSituIni"></span>
     </fieldset>
     <br>
     <fieldset>
         <legend>Informações do pedido</legend>
         <label for="pedido">NºPed</label>
-        <input type="text" name="pedido" id="pedido">  
+        <input type="text" name="pedido" id="pedido">
+        <span class="errorMsgPedido"></span>  
         <label for="ordem">NºOp</label>
         <input type="text" name="ordem" id="ordem">            
+        <span class="errorMsgOrdem"></span>  
         <label for="lote">Lote</label>
         <input type="text" name="lote" id="lote">
+        <span class="errorMsgLote"></span> 
+        <label for="rpm">Rpm</label>
+        <input type="text" name="rpm" id="rpm">
+        <span class="errorMsgRpm"></span>  
     </fieldset>    
     <br>
     <fieldset>
         <legend>Dados Produtivos</legend>
         <label for="peso_bob">Peso</label>
-        <input type="text" name="peso_bob" id="peso_bob">    
+        <input type="text" name="peso_bob" id="peso_bob">
+        <span class="errorMsgPeso"></span>    
         <label for="quantidade">Qtd</label>
         <input type="number" name="quantidade" id="quantidade"> 
+        <span class="errorMsgQtd"></span> 
         <label for="total">Total</label>
         <input type="text"  name="total" id="total" readonly=""> 
         <br><br>
+        
+    </fieldset>        
+    <fieldset>
+        <legend>Informações do produto</legend>
         <label for="larg">Larg</label>
         <input type="text" name="larg" id="larg">
         <label for="esp">Esp</label>
         <input type="text" name="esp" id="esp">
         <label for="metrag">Metrag</label>
-        <input type="text" name="metrag" id="metrag">
-    </fieldset>        
-    <fieldset>
-        <legend>Informações de Perda</legend>
-        <label for="apara">Apara</label>        
-        <input type="text" name="apara" id="apara">
-        <label for="refile">Refile</label>        
-        <input type="text" name="refile" id="refile">
-        <label for="borra">Borra</label>
-        <input type="text" name="borra" id="borra">    
+        <input type="text" name="metrag" id="metrag"> 
     </fieldset>    
     <fieldset>
         <legend>Situação Aprovação - Fim</legend>
-        <label for="hrlimp">Horario Termino</label>
+        <label for="hrfim">Horario Termino</label>
         <input type="text" name="hrfim" id="hrfim">
-        <span class="errorMsgHor"></span> 
+        <span class="errorMsgHorFim"></span> 
         <p>
             <input type="radio" id="aprovacaofim" name="aprovacaofim" value="1">
             <label for="aprovacaofim">Aprovado</label>
@@ -95,7 +98,7 @@
         <span class="errorMsgSituFim"></span>        
     </fieldset>
     <br>
-    <button id="addProd" class="btn">Adicionar</button>        
+    <input type="button" name="addProd" id="addProd" value="Adicionar">    
 </form>
 
 <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script_producao_add.js"></script>

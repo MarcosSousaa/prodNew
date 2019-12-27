@@ -19,3 +19,14 @@ fieldset{
 	background: #bdc3c7;
 	color: #1e3799;
 }
+.novo-fieldset{
+	width: 47%;
+	height: 200px;
+	float: left;
+	background: #bdc3c7;
+	color: #1e3799;	
+}
+
+.title{
+	color:blue;
+}

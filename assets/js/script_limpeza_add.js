@@ -64,8 +64,7 @@ $(document).ready(function(){
         	valida = false;                     	
         }
 
-        else {
-        	alert('foi no else');
+        else {        	
         	valida = true;
         	if(valida){
         		$('form').submit();

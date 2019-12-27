@@ -2,58 +2,104 @@
 <div class="tabarea">
     <div class="tabitem activetab">Lançamento de Produção</div>
     <?php if($producao_add) : ?>
-    <div class="tabitem">Lançamento Acabamento</div>
+    <div class="tabitem">Lançamento Perda</div>
     <?php endif ?>
 </div>
 
 <div class="tabcontent">
     <div class="tabbody">
         <?php if($producao_add) : ?>
-        <a class="button" href="<?= BASE_URL ?>/producao/add_prod"> Adicionar Dados Produção</a>
+        <a class="button" href="<?= BASE_URL ?>/producao/add_prod"> Adicionar Dados Produção</a>        
         <?php endif; ?>
-        <table width="100%">
-            <tr>
-                <th>Data</th>
-                <th>Extrusora</th>
-                <th>Turno</th>
-                <th>Nome Operador</th>
-                <th>Numero Pedido</th>
-                <th>Quantidade KG</th>
-                <th width="160">Ações</th>
-            </tr>
-            <?php foreach ($permission_groups_list as $p): ?>
+        <br><br>
+        <div class="filtro-data">
+            <form method="POST">
+                <fieldset>
+                    <legend style="color:blue">NOVO FILTRO DE DATA</legend>        
+                    <input type="date" name="data1" value="<?php echo date('Y-m-d');?>">
+                    <br> 
+                    Até:
+                    <input type="date" name="data2" value="<?php echo date('Y-m-d');?>"><br><br>
+                    <button id="btnPesquisaFiltro">Pesquisar</button>       
+                </fieldset>
+            </form>
+        </div>
+        <table width="100%" class="paginated">
+            <thead>
                 <tr>
-                    <td><?= $p['name'] ?></td>
-                    <td>
-                        <a class="button button_small" href="<?= BASE_URL ?>/permissions/edit_group/<?= $p['id'] ?>">Editar</a>
-                        <a class="button button_small" href="<?= BASE_URL ?>/permissions/delete_group/<?= $p['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+                    <th>Data</th>
+                    <th>Inicio</th>
+                    <th>Extrusora</th>
+                    <th>Turno</th>
+                    <th>Nome Operador</th>
+                    <th>Numero Pedido</th>
+                    <th>Total Produzido KG</th>
+                    <th>Término</th>
+                    <th width="120">Ações</th>
+                </tr>    
+            </thead>
+            <tbody>
+                <?php foreach ($producao_list as $pl): ?>
+                    <tr>
+                        <td><?php echo date('d/m/Y', strtotime($pl['data_prod']));  ?></td>
+                        <td><?= $pl['hri']; ?></td>                    
+                        <td><?= $pl['extrusora'] ?></td>
+                        <td><?php echo $turno[$pl['turno']]; ?></td>
+                        <td><?= $pl['operador'] ?></td>
+                        <td><?= $pl['pedido'] ?></td>
+                        <td><?= number_format($pl['totalbob'], 2, ',', '.'); ?></td>
+                        <td><?= $pl['hrf']; ?></td>                    
+                        <td>
+                            <a class="button button_small" href="<?= BASE_URL ?>/producao/view_prod/<?= $pl['id'] ?>">Visualizar</a>
+                            <a class="button button_small" href="<?= BASE_URL ?>/producao/edit_prod/<?= $pl['id'] ?>">Editar</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
         </table>
     </div>
     <?php if($producao_addacab) { ?>
     <div class="tabbody">
         <?php if($producao_addacab) : ?>
-        <a class="button" href="<?= BASE_URL ?>/permissions/add">Adicionar Dados Acabamento</a>
+        <a class="button" href="<?= BASE_URL ?>/producao/add_perda">Adicionar Dados Perda</a>
+        <br><br>
         <?php endif; ?>
-        <table width="100%">
-            <tr>
-                <th>Data</th>
-                <th>Extrusora</th>
-                <?php if($permissions_del) : ?>
-                <th width="50">Ações</th>
-                <?php endif; ?>
-            </tr>
-            <?php foreach ($permission_list as $p): ?>
+        <div class="filtro-data">
+            <form method="POST">
+                <fieldset>
+                    <legend style="color:blue">NOVO FILTRO DE DATA</legend>        
+                    <input type="date" name="data1" value="<?php echo date('Y-m-d');?>">
+                    <br> 
+                    Até:
+                    <input type="date" name="data2" value="<?php echo date('Y-m-d');?>"><br><br>
+                    <button id="btnPesquisaFiltro">Pesquisar</button>       
+                </fieldset>
+            </form>
+        </div>
+        <table width="100%" class="paginated">
+            <thead>
                 <tr>
-                    <td><?= $p['descricao'] ?></td>
-                    <td><?= $p['name'] ?></td>
-                    <?php if($permissions_del) : ?>
+                    <th>Data</th>
+                    <th>Turno</th>                    
+                    <th>Apara</th>
+                    <th>Refile</th>
+                    <th>Borra</th>
+                    <th>Acabamento/Disco</th>
+                    <th width="70">Ações</th>                
+                </tr>    
+            </thead>
+            <?php foreach ($perda_list as $pd): ?>
+                <tr>
+                    <td><?= date('d/m/Y',strtotime($pd['data_perd'])) ?></td>
+                    <td><?= $pd['turno'] ?></td>                    
+                    <td><?= $pd['apara'] ?></td>
+                    <td><?= $pd['refile'] ?></td>
+                    <td><?= $pd['borra'] ?></td>
+                    <td><?= $pd['acabamento'] ?></td>                    
                     <td>
-                        <a class="button button_small" href="<?= BASE_URL ?>/permissions/delete/<?= $p['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
-                    </td>
-                    <?php endif; ?>
+                        <a class="button button_small" href="<?= BASE_URL ?>/producao/view_perda/<?= $pd['id'] ?>">Visualizar</a>
+                        <a class="button button_small" href="<?= BASE_URL ?>/producao/edit_perda/<?= $pd['id'] ?>">Editar</a>
+                        </td>                
                 </tr>
             <?php endforeach; ?>
         </table>
