@@ -180,7 +180,7 @@ class ReportsController extends Controller {
         }
     }
 
-        public function controleChaves(){
+    public function controleChaves(){
         $data = array();
         // informações para o template
         $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
@@ -207,6 +207,44 @@ class ReportsController extends Controller {
             ob_end_clean(); // zerando a memoria quanto a este processo
             $mpdf = new Mpdf(['orientation' => 'L']);
             $mpdf->SetHeader('Portaria Ind Bandeirante| Relatório de Entrada e Saída Veículos |Pág. - {PAGENO}');
+             $mpdf->SetFooter('Relatorio impresso : '.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
+
+        }else {
+            header("Location:" . BASE_URL);
+            exit;
+        }
+    }
+
+    public function producao(){
+        $data = array();
+        // informações para o template
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);   
+        if($this->user->hasPermission('report_producao')){
+            $this->loadTemplate('report_producao', $data);
+        }else {
+            header("Location: ". BASE_URL);
+            exit();
+        }       
+    }
+
+    public function producao_pdf(){
+        if($this->user->hasPermission('report_producao')){           
+            $data1 = addslashes($_GET['producao_data_inicial']);
+            $data2 = addslashes($_GET['producao_data_final']);
+            $pedido = addslashes($_GET['pedido']);
+            $ordem = addslashes($_GET['ordem']);
+            $lote = addslashes($_GET['lote']);
+            $p = new Producao(); 
+            $data['producao_list'] = $p->getReportProducao($data1,$data2,$pedido,$ordem,$lote);                                    
+            $data['filters'] = $_GET;            
+            ob_start(); // iniciando buffer [armazenando na memoria o que era pra ser carregado na view]
+            $this->loadView('report_producao_pdf', $data);
+            $html = ob_get_contents(); // pegando tudo armazenado no buffer e colocando na variavel $html            
+            ob_end_clean(); // zerando a memoria quanto a este processo
+            $mpdf = new Mpdf(['orientation' => 'L']);
+            $mpdf->SetHeader('Produção Ind Bandeirante| Relatório de Produção |Pág. - {PAGENO}');
              $mpdf->SetFooter('Relatorio impresso : '.date('d/m/Y \à\s H:i').' | Usuário - '.$this->user->getName(). '|');
             $mpdf->WriteHTML($html);
             $mpdf->Output();

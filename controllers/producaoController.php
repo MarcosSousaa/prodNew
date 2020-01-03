@@ -91,10 +91,7 @@ class producaoController extends Controller {
             if(isset($_POST['sobrabob']) && !empty($_POST['sobrabob'])){
                 $sobrabob = addslashes($_POST['sobrabob']);
                 $sobrabobkg = addslashes($_POST['sobrabobkg']);
-                $qtdparada = addslashes($_POST['qtdparada']);
-                $tempoparada = addslashes($_POST['tempoparada']);
-                $oc = $_POST['oc'];
-                $p->updateProducao($sobrabob,$sobrabobkg,$qtdparada,$tempoparada,$oc,$id);                              
+                $p->updateProducao($sobrabob,$sobrabobkg,$id);                              
                 header("Location: " . BASE_URL . "/producao");
                 exit();
             }            
@@ -137,7 +134,10 @@ class producaoController extends Controller {
                 $refile = addslashes($_POST['refile']);                
                 $borra = addslashes($_POST['borra']);
                 $acabamento = addslashes($_POST['acabamento']);
-                $p->addPerda($data_perda,$turno,$apara,$refile,$borra,$acabamento);
+                $qtdparada = addslashes($_POST['qtdparada']);
+                $tempoparada = addslashes($_POST['tempoparada']);
+                $oc = $_POST['oc'];                
+                $p->addPerda($data_perda,$turno,$apara,$refile,$borra,$acabamento,$qtdparada,$tempoparada,$oc);
                 header("Location: " . BASE_URL . "/producao");
                 exit();
             }
@@ -162,7 +162,10 @@ class producaoController extends Controller {
                 $refile = addslashes($_POST['refile']);                
                 $borra = addslashes($_POST['borra']);
                 $acabamento = addslashes($_POST['acabamento']);
-                $p->updatePerda($apara,$refile,$borra,$acabamento,$id);                              
+                $qtdparada = addslashes($_POST['qtdparada']);
+                $tempoparada = addslashes($_POST['tempoparada']);
+                $oc = $_POST['oc'];                
+                $p->updatePerda($apara,$refile,$borra,$acabamento,$qtdparada,$tempoparada,$oc,$id);                
                 header("Location: " . BASE_URL . "/producao");
                 exit();
             }
@@ -170,6 +173,24 @@ class producaoController extends Controller {
             $data['perda_info'] = $p->getInfoPerda($id);            
             $data['menu_list'] = $this->menu->getList();             
             $this->loadTemplate('producao_editperda', $data);
+        } else {
+            header("Location: " . BASE_URL);
+        }
+    }
+
+     public function view_perda($id) {
+        // informações para o template
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);
+        $data['turno'] = array(
+            '001' => 'MANHA',
+            '002' => 'TARDE',
+            '003' => 'NOITE'
+        );      
+        if($this->user->hasPermission('producao_edit')) {
+            $p = new Producao();
+            $data['perda_info'] = $p->getInfoPerda($id);            
+            $data['menu_list'] = $this->menu->getList();             
+            $this->loadTemplate('producao_viewperda', $data);
         } else {
             header("Location: " . BASE_URL);
         }

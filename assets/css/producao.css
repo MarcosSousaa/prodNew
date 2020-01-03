@@ -1,3 +1,4 @@
+
 input[type=text],
 input[type=date],
 input[type=email],
@@ -14,7 +15,7 @@ textarea{
 
 fieldset{
 	width: 47%;
-	height: 100px;
+	height: 130px;
 	float: left;
 	background: #bdc3c7;
 	color: #1e3799;

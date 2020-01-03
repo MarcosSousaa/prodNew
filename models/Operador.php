@@ -83,7 +83,7 @@ class Operador extends Model{
 
 	public function getOperador(){
 		$data = "";
-		$sql = "SELECT id,operador FROM operador";
+		$sql = "SELECT id,operador FROM operador order by operador";
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute();
 		if($stmt->rowCount() > 0){

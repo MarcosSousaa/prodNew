@@ -39,3 +39,11 @@
 	</a>
 </div>
 
+<div class="report_item">
+	<a href="<?php echo BASE_URL;?>/reports/producao">
+		<img src="<?php echo BASE_URL;?>/assets/images/icons/icon_report_producao.png" alt="" height="60">
+		<br><br>
+		<strong>Relação de Produção</strong>
+	</a>
+</div>
+

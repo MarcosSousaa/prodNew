@@ -33,36 +33,7 @@
 		<label>Sobra BOB Qtd.</label>
 		<input type="number" name="sobrabob" value="<?= (isset($producao_info['perdabob'])) ? $producao_info['perdabob'] : ''; ?>">
 		<label>Sobra BOB KG</label>			
-		<input type="text" name="sobrabobkg" id="sobrabobkg" value="<?= (isset($producao_info['perdakg'])) ? $producao_info['perdakg'] : ''; ?>"><br>
-		<hr>					
-		<label>Quantidade Parada</label>
-		<input type="number" name="qtdparada" value="<?= (isset($producao_info['qtdparada'])) ? $producao_info['qtdparada'] : ''; ?>">
-		<label>Tempo Parada</label>			
-		<input type="text" name="tempoparada" id="tempoparada" value="<?= (isset($producao_info['tempoparada'])) ? $producao_info['tempoparada'] : ''; ?>"><br><br>
-		<input type="checkbox" name="oc[]" value="LB" <?= (in_array("LB", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>LB - LIMP. BORDA</label>
-		<input type="checkbox" name="oc[]" value="BFG" <?= (in_array("BFG", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>BFG - BALÃO FURADO POR GEL</label>
-		<input type="checkbox" name="oc[]" value="LM" <?= (in_array("LM", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>LM - LIMP. MATRIZ</label><br>
-		<input type="checkbox" name="oc[]" value="PM" <?= (in_array("PM", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>PM - PROBLEMA MECÂNICO</label>
-		<input type="checkbox" name="oc[]" value="PE" <?= (in_array("PE", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>PE - PROBLEMA ELÉTRICO</label>
-		<input type="checkbox" name="oc[]" value="AC" <?= (in_array("AC", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>AC - ACERTO</label><br>
-		<input type="checkbox" name="oc[]" value="LG" <?= (in_array("LG", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>LG - LIMP. GERAL</label>
-		<input type="checkbox" name="oc[]" value="QE" <?= (in_array("QE", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>QE - QUEDA ENERGIA</label>
-		<input type="checkbox" name="oc[]" value="ME" <?= (in_array("ME", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>ME - MANUTENÇÃO ELETRÍCA</label><br>
-		<input type="checkbox" name="oc[]" value="MM" <?= (in_array("MM", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>MM - MANUTENÇÃO MECÂNICA</label>
-		<input type="checkbox" name="oc[]" value="IM" <?= (in_array("IM", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>IM - INICIO MAQ.</label>
-		<input type="checkbox" name="oc[]" value="LPM" <?= (in_array("LPM", explode(",",$producao_info['oc']))) ? 'checked="checked"' : '' ; ?>>
-		<label>LPM - LIMP. MACHO</label><br>
+		<input type="text" name="sobrabobkg" id="sobrabobkg" value="<?= (isset($producao_info['perdakg'])) ? $producao_info['perdakg'] : ''; ?>"><br>		
 	</fieldset>
 	<br>
 	<input type="submit" name="" value="ATUALIZAR">	

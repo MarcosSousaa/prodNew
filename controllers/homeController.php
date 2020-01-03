@@ -21,6 +21,7 @@ class HomeController extends Controller{
 		$data = array();
 		// informações para o template
 		$data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu);
+		
 		$this->loadTemplate('home', $data);
 		
 	}

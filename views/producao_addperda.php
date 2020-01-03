@@ -30,8 +30,42 @@
         <span class="errorMsgBorra"></span> 
         <label for="acabamento">Acabamento</label>
         <input type="text" name="acabamento" id="acabamento">
-        <span class="errorMsgAcabamento"></span>  
-    </fieldset>    
+        <span class="errorMsgAcabamento"></span>        
+    </fieldset>
+    <fieldset>
+        <label for="qtdparada">Quantidade Parada</label>
+        <input type="number" name="qtdparada" id="qtdparada">
+        <label for="tempoparada">Tempo Parada</label>
+        <input type="text" name="tempoparada" id="tempoparada">       
+
+    </fieldset>
+    <fieldset>
+        <legend>Motivo Parada</legend>
+        <input type="checkbox" name="oc[]" value="LB" id="LB">
+        <label for="LB">LB-LIMP.BORDA </label>
+        <input type="checkbox" name="oc[]" value="BFG" id="BFG">
+        <label for="BFG">BFG-BALAO FURADO POR GEL</label>
+        <input type="checkbox" name="oc[]" value="LM" id="LM">
+        <label for="LM">LM-LIMPEZA DE MATRIZ</label>
+        <input type="checkbox" name="oc[]" value="PM" id="PM">
+        <label for="PM">PM-PROBL.MECANICO</label>
+        <input type="checkbox" name="oc[]" value="PE" id="PE">
+        <label for="PE">PE-PROBL.ELETRICO</label>
+        <input type="checkbox" name="oc[]" value="AC" id="AC">
+        <label for="AC">AC-ACERTO</label>
+        <input type="checkbox" name="oc[]" value="LG" id="LG">
+        <label for="LG">LG-LIMP.GERAL</label>
+        <input type="checkbox" name="oc[]" value="QE" id="QE">
+        <label for="QE">QE-QUEDA ENERGIA</label>
+        <input type="checkbox" name="oc[]" value="ME" id="ME">
+        <label for="ME">ME-MANUTENCAO ELETRICA</label>
+        <input type="checkbox" name="oc[]" value="MM" id="MM">
+        <label for="MM">MM-MANUTENCAO MECANICA</label>
+        <input type="checkbox" name="oc[]" value="IM" id="IM">
+        <label for="IM">IM - INICIO DA MAQUINA</label>
+        <input type="checkbox" name="oc[]" value="LPM" id="LPM">
+        <label for="LPM">LPM - LIMPEZA DE MACHO</label>
+    </fieldset>
     
     <input type="submit" value="Adicionar">    
 </form>

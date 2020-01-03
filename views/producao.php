@@ -58,9 +58,9 @@
             </tbody>
         </table>
     </div>
-    <?php if($producao_addacab) { ?>
+    <?php if($producao_add) { ?>
     <div class="tabbody">
-        <?php if($producao_addacab) : ?>
+        <?php if($producao_add) : ?>
         <a class="button" href="<?= BASE_URL ?>/producao/add_perda">Adicionar Dados Perda</a>
         <br><br>
         <?php endif; ?>

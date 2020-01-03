@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Portaria - Indústria Bandeirante de Plásticos></title>
+        <title>Indústria Bandeirante de Plásticos></title>
         <link href="<?= BASE_URL ?>/assets/css/template.css" rel="stylesheet"/>
         <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.min.js"></script>
         <script type="text/javascript">
